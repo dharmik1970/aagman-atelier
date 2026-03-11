@@ -1469,7 +1469,7 @@ emailjs.init("C3g3LgHBrZXzVUQtb");
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeConsultation(); });
 
     /* ── EMAILJS: SEND INQUIRY EMAIL ── */
-    function sendInquiryEmail(name, phone, message){
+    function sendInquiryEmail(name, phone, message) {
 
         emailjs.send("service_blngg87","template_795qr3k",{
             name: name,
@@ -1478,9 +1478,10 @@ emailjs.init("C3g3LgHBrZXzVUQtb");
             time: new Date().toLocaleString()
         })
         .then(function(response){
-            console.log("Email sent successfully", response);
-        },function(error){
-            console.error("Email sending failed", error);
+            console.log("Email sent", response);
+        })
+        .catch(function(error){
+            console.error("Email failed", error);
         });
 
     }
@@ -1514,6 +1515,11 @@ emailjs.init("C3g3LgHBrZXzVUQtb");
             alert("Please fill your name, phone number, and space description.");
             return;
         }
+        
+        // Debug logs
+        console.log("Name:", name);
+        console.log("Phone:", phone);
+        console.log("Message:", input);
         
         // Send inquiry email
         sendInquiryEmail(name, phone, input);
