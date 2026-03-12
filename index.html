@@ -1395,10 +1395,11 @@
             <h3>Describe<br>Your Space</h3>
             <p class="sub">The first step to the arrival</p>
             <input id="clientName" type="text" placeholder="Your Name" class="modal-input">
+            <input id="clientEmail" type="email" placeholder="Your Email" class="modal-input">
             <input id="clientPhone" type="tel" placeholder="Phone / WhatsApp" class="modal-input">
             <textarea id="spaceDescription" placeholder="e.g., A minimalist glass-walled study overlooking a quiet forest. High ceilings, raw concrete floors, cold morning light..."></textarea>
             <button id="btnSeek" class="modal-btn btn-primary" onclick="seekResonance()">
-                Seek Resonance ✦
+                Seek Resonance 
                 <div id="seekSpinner" class="spinner"></div>
             </button>
             <button id="btnVoice" class="modal-btn btn-secondary" onclick="listenToStory()" style="display:none;">
@@ -1469,10 +1470,11 @@ emailjs.init("C3g3LgHBrZXzVUQtb");
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeConsultation(); });
 
     /* ── EMAILJS: SEND INQUIRY EMAIL ── */
-    function sendInquiryEmail(name, phone, message) {
+    function sendInquiryEmail(name, email, phone, message) {
 
         emailjs.send("service_blngg87","template_795qr3k",{
             name: name,
+            email: email,
             phone: phone,
             message: message,
             time: new Date().toLocaleString()
@@ -1508,21 +1510,23 @@ emailjs.init("C3g3LgHBrZXzVUQtb");
 
     async function seekResonance() {
         const name = document.getElementById('clientName').value.trim();
+        const email = document.getElementById('clientEmail').value.trim();
         const phone = document.getElementById('clientPhone').value.trim();
-        const input = document.getElementById('spaceDescription').value.trim();
+        const message = document.getElementById('spaceDescription').value.trim();
         
-        if(!name || !phone || !input){
-            alert("Please fill your name, phone number, and space description.");
+        if (!name || !email || !phone || !message) {
+            alert("Please fill your name, email, phone number, and space description.");
             return;
         }
         
         // Debug logs
         console.log("Name:", name);
+        console.log("Email:", email);
         console.log("Phone:", phone);
-        console.log("Message:", input);
+        console.log("Message:", message);
         
         // Send inquiry email
-        sendInquiryEmail(name, phone, input);
+        sendInquiryEmail(name, email, phone, message);
         
         const btn = document.getElementById('btnSeek');
         const spin = document.getElementById('seekSpinner');
